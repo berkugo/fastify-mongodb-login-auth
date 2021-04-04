@@ -1,0 +1,18 @@
+{
+  "name": "altvdbkoa",
+  "version": "1.0.0",
+  "description": "altv x rp db service",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "fastify": "^3.14.1",
+    "koa-json": "^2.0.2",
+    "mongodb": "^3.6.5",
+    "mongoose": "^5.12.3",
+    "nodemon": "^2.0.7"
+  }
+}
