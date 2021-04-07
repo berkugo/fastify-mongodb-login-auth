@@ -34,6 +34,19 @@ const router = async (fastify, options, done) => {
 
     })
 
+    fastify.post("/update", options, async (req, res) => {
+//610 127 589
+        const playerExist = await userModel.exists({ userName: req.body.userName })
+        if (playerExist && req.body.userName && req.body.userPass) {
+            const playerData = await userModel.findOne({ userName: req.body.userName, userPassword: req.body.userPass }).exec()
+            return res.code(200).send(playerData)
+        }
+        else {
+            return reply.code(404).send({ result: { message: "Error." } })  
+        }
+
+    })
+
     done()
 }
 module.exports = router
