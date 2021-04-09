@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
     admin: { type: Number, default: 0 },
     ban: { type: Boolean, default: false },
     jail: { type: Number, default: 0},
+    spawnLocation: {type: Object, default: {}}
 })
 
 const userModel = new mongoose.model('users', userSchema)
