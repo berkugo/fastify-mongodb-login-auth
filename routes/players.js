@@ -1,6 +1,5 @@
 const userModel = require("../models/users")
 
-
 const router = async (fastify, options, done) => {
 
     fastify.post("/create", options, async (req, reply) => {
