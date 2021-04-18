@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
     characterDetails: { type: Object, default: {} },
     online: { type: Boolean, default: false },
     firstLogin: { type: Boolean, default: false },
+    money: {type: Number, default: 500},
     admin: { type: Number, default: 0 },
     ban: { type: Boolean, default: false },
     jail: { type: Number, default: 0},
