@@ -2,7 +2,6 @@
 const mongoose = require('mongoose');
 
 const houseSchema = new mongoose.Schema({
-    _id: {type: String},
     name: {type: String, required: true},
     originalName: {type: String},
     owner: {type: String, default: null},
