@@ -26,16 +26,6 @@ const houseSchema = new mongoose.Schema({
     }
 })
 
-houseSchema.pre('save', function(next){
-    if(!this.originalName){
-        this.originalName = this.name
-    }
-    if(!this.originalPrice){
-        this.originalPrice = this.price
-    }
-    next()
-})
-
 const houseModel = new mongoose.model('houses', houseSchema)
 
 module.exports = houseModel

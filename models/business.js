@@ -27,16 +27,6 @@ const businessSchema = new mongoose.Schema({
     }
 })
 
-businessSchema.pre('save', function(next){
-    if(!this.originalName){
-        this.originalName = this.name
-    }
-    if(!this.originalPrice){
-        this.originalPrice = this.price
-    }
-    next()
-})
-
 const businessModel = new mongoose.model('businesses', businessSchema)
 
 module.exports = businessModel

@@ -8,7 +8,9 @@ const router = async (fastify, options, done) => {
             const instance = new houseModel({
                 name: name,
                 price: price,
-                input: input
+                input: input,
+                originalName: name,
+                originalPrice: price
             })
             instance.save()
             return res.send({ result: true })
