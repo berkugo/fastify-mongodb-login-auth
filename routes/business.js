@@ -10,7 +10,8 @@ const router = async (fastify, options, done) => {
                 price: price,
                 input: input,
                 originalName: name,
-                originalPrice: price
+                originalPrice: price,
+                colshape1: colshape1
             })
             instance.save()
             return res.send({ result: true })
