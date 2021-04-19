@@ -22,7 +22,9 @@ const houseSchema = new mongoose.Schema({
         y: {type: Number, default: 0},
         z: {type: Number, default: 0},
         d: {type: Number, default: 0}
-    }
+    },
+    colshape1: {},
+    colshape2: {}
 })
 
 const houseModel = new mongoose.model('houses', houseSchema)
