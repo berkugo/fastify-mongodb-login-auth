@@ -31,6 +31,13 @@ const router = async (fastify, options, done) => {
         }
     })
 
+    fastify.get("/get/:type", options, async (req, res) => {
+        if(req.params.type === 'all') {
+           const result = await houseModel.find()
+           return res.code(200).send(result)
+        } else return res.code(400).send(false)
+    })
+
     fastify.post("/update", options, async (req, res) => {
         const isExist = await houseModel.exists({ _id: req.body._id })
         if (isExist) {
