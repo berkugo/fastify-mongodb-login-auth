@@ -3,15 +3,16 @@ const businessModel = require("../models/business")
 const router = async (fastify, options, done) => {
 
     fastify.post("/create", options, async (req, res) => {
-        const { name, price, input } = req.body
-        if (name && price && input) {
+        const { id, name, price, input, colshape } = req.body
+        if (id && name && price && input && colshape) {
             const instance = new businessModel({
+                id: id,
                 name: name,
                 price: price,
                 input: input,
                 originalName: name,
                 originalPrice: price,
-                colshape1: colshape1
+                colshape: colshape
             })
             instance.save()
             return res.send({ result: true })
@@ -39,9 +40,9 @@ const router = async (fastify, options, done) => {
     })
 
     fastify.post("/update", options, async (req, res) => {
-        const isExist = await businessModel.exists({ _id: req.body._id })
+        const isExist = await businessModel.exists({ id: req.body.id })
         if (isExist) {
-            const data = await businessModel.findOneAndUpdate({ _id: req.body._id }, req.body.data, {
+            const data = await businessModel.findOneAndUpdate({ id: req.body.id }, req.body.data, {
                 new: true,
             });
             return res.code(200).send(data)
