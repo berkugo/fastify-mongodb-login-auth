@@ -22,9 +22,9 @@ const router = async (fastify, options, done) => {
     })
 
     fastify.post("/match", options, async (req, res) => {
-        const isExist = await businessModel.exists({ _id: req.body._id })
-        if (isExist && req.body._id) {
-            const data = await businessModel.findOne({ _id: req.body._id }).exec()
+        const isExist = await businessModel.exists({ id: req.body.id })
+        if (isExist && req.body.id) {
+            const data = await businessModel.findOne({ id: req.body.id }).exec()
             return res.code(200).send(data)
         }
         else {

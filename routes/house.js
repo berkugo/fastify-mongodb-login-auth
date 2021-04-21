@@ -3,15 +3,16 @@ const houseModel = require("../models/house")
 const router = async (fastify, options, done) => {
 
     fastify.post("/create", options, async (req, res) => {
-        const { name, price, input } = req.body
-        if (name && price && input) {
+        const { id, name, price, input, colshape } = req.body
+        if (id && name && price && input && colshape) {
             const instance = new houseModel({
+                id: id,
                 name: name,
                 price: price,
                 input: input,
                 originalName: name,
                 originalPrice: price,
-                colshape1: colshape1
+                colshape: colshape
             })
             instance.save()
             return res.send({ result: true })
@@ -21,9 +22,9 @@ const router = async (fastify, options, done) => {
     })
 
     fastify.post("/match", options, async (req, res) => {
-        const isExist = await houseModel.exists({ _id: req.body._id })
-        if (isExist && req.body._id) {
-            const data = await houseModel.findOne({ _id: req.body._id }).exec()
+        const isExist = await houseModel.exists({ id: req.body.id })
+        if (isExist && req.body.id) {
+            const data = await houseModel.findOne({ id: req.body.id }).exec()
             return res.code(200).send(data)
         }
         else {
@@ -39,9 +40,9 @@ const router = async (fastify, options, done) => {
     })
 
     fastify.post("/update", options, async (req, res) => {
-        const isExist = await houseModel.exists({ _id: req.body._id })
+        const isExist = await houseModel.exists({ id: req.body.id })
         if (isExist) {
-            const data = await houseModel.findOneAndUpdate({ _id: req.body._id }, req.body.data, {
+            const data = await houseModel.findOneAndUpdate({ id: req.body.id }, req.body.data, {
                 new: true,
             });
             return res.code(200).send(data)
