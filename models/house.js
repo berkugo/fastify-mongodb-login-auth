@@ -12,6 +12,7 @@ const houseSchema = new mongoose.Schema({
     locked: { type: Boolean, default: true },
     case: { type: Number, default: 0 },
     store: [],
+    switch: [],
     input: {
         x: { type: Number, default: 0 },
         y: { type: Number, default: 0 },

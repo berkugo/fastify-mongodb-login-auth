@@ -14,6 +14,7 @@ const businessSchema = new mongoose.Schema({
     case: { type: Number, default: 0 },
     store: [],
     personel: [],
+    switch: [],
     input: {
         x: { type: Number, default: 0 },
         y: { type: Number, default: 0 },
