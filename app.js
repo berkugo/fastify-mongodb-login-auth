@@ -6,6 +6,7 @@ const houseRouter = require('./routes/house');
 const startDB = require('./db/db')
 startDB();
 
+service.register(require('fastify-cors'), { origin: true })
 
 service.register(playerRouter, { prefix: '/player' })
 service.register(vehicleRouter, { prefix: '/vehicle' })
