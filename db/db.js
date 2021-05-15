@@ -1,6 +1,7 @@
 
 const mongoose = require('mongoose');
-const url = "mongodb://xrpadmin:chr123321@157.230.101.140:27017/xrp"
+const url = "mongodb://xrpadmin:chr123321@altv.turnuvam.net:27017/xrp"
+const autoIncrement = require('mongoose-auto-increment');
 
 function createConnectionToDb(){
     mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true})
@@ -8,7 +9,9 @@ function createConnectionToDb(){
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', function () {
     });
-    
+    autoIncrement.initialize(db);
+
 }
+createConnectionToDb();
 
 module.exports = createConnectionToDb

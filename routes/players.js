@@ -18,7 +18,7 @@ const router = async (fastify, options, done) => {
             return reply.code(404).send({ result: { message: "Already created or required params are lack of." } })
         }
 
-    })
+    })  
 
     fastify.post("/match", options, async (req, res) => {
 

@@ -1,10 +1,9 @@
 const service = require('fastify')({ logger: true })
-const playerRouter = require('./routes/players')
-const vehicleRouter = require('./routes/vehicles')
+require('./db/db');
+const vehicleRouter = require('./routes/vehicles');
 const businessRouter = require('./routes/business');
 const houseRouter = require('./routes/house');
-const startDB = require('./db/db')
-startDB();
+const playerRouter = require('./routes/players');
 
 service.register(require('fastify-cors'), { origin: true })
 

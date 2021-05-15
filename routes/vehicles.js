@@ -17,14 +17,15 @@ const router = (fastify, options, done) => {
             })
 
         } else {
-
+            
             return res.code(404).send({ result: { message: "Already created or required params are lack of." } })
         }
 
     })
     fastify.get("/get/:type", options, async (req, res) => {
         if (req.params.type === 'all') {
-            const result = await vehicleModel.find()
+            const result 
+            = await vehicleModel.find()
             return res.code(200).send(result)
         } else if (req.params.type === 'byowner') {
             const vehicleResult = await vehicleModel.findOne({ ownerId: req.query.ownerId, _id: req.query.id })
