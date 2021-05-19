@@ -3,12 +3,13 @@ const factionModel = require("../models/faction")
 const router = async (fastify, options, done) => {
 
     fastify.post("/create", options, async (req, res) => {
-        const { id, name, type } = req.body
-        if (id && name && type) {
+        const { id, name, type, ranks } = req.body
+        if (id && name && type && ranks) {
             const instance = new factionModel({
                 id: id,
                 name: name,
-                type: type
+                type: type,
+                ranks: ranks
             })
             instance.save()
             return res.send({ result: true })
