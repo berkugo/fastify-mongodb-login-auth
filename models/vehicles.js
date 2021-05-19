@@ -7,6 +7,7 @@ const vehicleSchema = new mongoose.Schema({
     secondaryColor: { type: String, default: '0', required: true },
     plate: { type: String, required: true },
     insurance: { type: Number, default: 30 },
+    faction: { type: Number, default: 0},
     createdDate: { type: Number, default: Date.now },
     keys: {
         type: Object, default: {
