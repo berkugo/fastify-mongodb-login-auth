@@ -9,7 +9,8 @@ const factionSchema = new mongoose.Schema({
     hoodConfirm: { type: Boolean, default: false },
     systemConfirm: { type: Boolean, default: false },
     chatStatus: { type: Boolean, default: true },
-    ranks: {}
+    ranks: {},
+    status: { type: Boolean, default: true }
 })
 
 const factionModel = new mongoose.model('factions', factionSchema)
