@@ -15,6 +15,7 @@ const userSchema = new mongoose.Schema({
         id: 0,
         rank: 0
     }},
+    test1: { type: String, default: "Testin testi"},
     ban: { type: Boolean, default: false },
     jail: { type: Number, default: 0 },
     spawnLocation: { type: Object, default: {} }
