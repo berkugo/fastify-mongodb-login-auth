@@ -51,6 +51,7 @@ const router = (fastify, options, done) => {
                 position: req.body.data.position,
                 primaryColor: req.body.data.colorData.primaryColor,
                 secondaryColor: req.body.data.colorData.secondaryColor,
+                faction: req.body.data.faction
             }
             const data = await vehicleModel.findOneAndUpdate({ _id: req.body.data._id }, updatedData, {
                 new: true,
