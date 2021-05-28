@@ -1,4 +1,4 @@
-const userModel = require("../models/users")
+const userModel = require('../models/users');
 
 const router = async (fastify, options, done) => {
 
@@ -74,7 +74,3 @@ const router = async (fastify, options, done) => {
     done()
 }
 module.exports = router
-
-
-
-
