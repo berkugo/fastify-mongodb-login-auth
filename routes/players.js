@@ -47,10 +47,10 @@ const router = async (fastify, options, done) => {
     })
 
     fastify.post("/update", options, async (req, res) => {
-        if (req.body.uuid && (req.body.uuid.length < 5) || req.body.uuid === 0) {
-            const playerExist = await userModel.exists({ xid: req.body.uuid })
+        if (req.body.xid || parseInt(req.body.xid) > -1) {
+            const playerExist = await userModel.exists({ xid: req.body.xid })
             if (playerExist) {
-                const data = await userModel.findOneAndUpdate({ xid: req.body.uuid }, req.body.data, {
+                const data = await userModel.findOneAndUpdate({ xid: req.body.xid }, req.body.data, {
                     new: true,
                 });
                 return res.code(200).send(data)
