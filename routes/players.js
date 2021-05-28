@@ -17,7 +17,10 @@ const router = async (fastify, options, done) => {
         .send({ result: { message: 'Already created or required params are lack of.' } });
     }
   });
-
+  fastify.get('/getall', options, async (req, res) => {
+    const data = await userModel.find().exec();
+    return res.code(200).send(data);
+  });
   fastify.post('/match', options, async (req, res) => {
     const playerExist = await userModel.exists({ userName: req.body.userName });
     if (playerExist && req.body.userName && req.body.userPass) {
