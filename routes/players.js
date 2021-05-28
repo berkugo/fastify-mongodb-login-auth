@@ -20,8 +20,8 @@ const router = async (fastify, options, done) => {
 
   })
   fastify.get('/getall', options, async (req, res) => {
-    const data = await userModel.find().exec();
-    return res.code(200).send(data);
+    const data = await userModel.find();
+    return res.code(200).send(data);    
   });
   fastify.post("/match", options, async (req, res) => {
 
