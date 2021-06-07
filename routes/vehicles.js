@@ -51,7 +51,7 @@ const router = (fastify, options, done) => {
     } else return res.code(400).send(false);
   });
 
-  fastify.post('/update', options, async (req, res) => {
+  fastify.patch('/update', options, async (req, res) => {
     const vehicleExist = await vehicleModel.exists({ _id: req.body.data._id });
     if (vehicleExist) {
       const updatedData = {
@@ -67,6 +67,23 @@ const router = (fastify, options, done) => {
         new: true,
       });
       return res.code(200).send(JSON.parse(JSON.stringify(data)));
+    } else {
+      return res.code(404).send({ result: { message: 'Error.' } });
+    }
+  });
+
+  fastify.delete('/', options, async (req, res) => {
+    const { _id } = req.body;
+    if (_id) {
+      const vehicleExist = await vehicleModel.exists({ _id });
+      if (vehicleExist) {
+        try {
+          await vehicleModel.deleteOne({ _id });
+          res.code(200).send();
+        } catch (error) {
+          res.code(500).send({ result: { message: error.message } });
+        }
+      }
     } else {
       return res.code(404).send({ result: { message: 'Error.' } });
     }
