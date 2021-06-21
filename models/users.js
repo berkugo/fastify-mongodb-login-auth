@@ -1,6 +1,6 @@
 const autoIncrement = require('mongoose-auto-increment');
-
 const mongoose = require('mongoose');
+
 const userSchema = new mongoose.Schema({
   xid: { type: Number, default: 0 },
   userName: { type: String, required: true },
@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
   characterName: { type: String, required: true },
   characterDetails: { type: Object, default: {} },
   online: { type: Boolean, default: false },
-  firstLogin: { type: Boolean, default: false },
+  firstLogin: { type: Boolean, default: true },
   money: { type: Number, default: 500 },
   admin: { type: Number, default: 0 },
   faction: {

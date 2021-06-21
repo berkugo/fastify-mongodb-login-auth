@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const autoIncrement = require('mongoose-auto-increment');
 
 const vehicleSchema = new mongoose.Schema({
-  xid: { type: Number, default: 0 },
+  id: { type: Number, default: 0 },
   modelHash: { type: String, required: true },
   ownerId: { type: String, required: true },
   position: { type: Object, default: {} },
@@ -23,7 +23,7 @@ const vehicleSchema = new mongoose.Schema({
   },
 });
 
-vehicleSchema.plugin(autoIncrement.plugin, { model: 'vehicles', field: 'xid' });
+vehicleSchema.plugin(autoIncrement.plugin, { model: 'vehicles', field: 'id' });
 const vehicleModel = new mongoose.model('vehicles', vehicleSchema);
 
 module.exports = vehicleModel;
