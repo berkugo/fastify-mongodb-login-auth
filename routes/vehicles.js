@@ -1,70 +1,61 @@
-const userModel = require("../models/users")
-const vehicleModel = require("../models/vehicles")
-
+const VehicleModel = require('../models/vehicles');
 
 const router = (fastify, options, done) => {
+  fastify.get('/', options, async (req, res) => {
+    const result = await VehicleModel.find();
+    return res.code(200).send(result);
+  });
 
-    fastify.post("/create", options, (req, res) => {
-        if (req.body.modelHash && req.body.ownerId && req.body.position && req.body.colorData && req.body.plate) {
-            const { modelHash, ownerId, position, colorData, plate } = req.body
-            const instance = new vehicleModel({
-                modelHash: modelHash, ownerId: ownerId,
-                position: position, primaryColor: colorData.primaryColor, secondaryColor: colorData.secondaryColor,
-                plate: plate
-            })
-            return instance.save().then(data => {
-                res.send({ result: data })
-            })
+  // create vehicle
+  fastify.post('/', options, (req, res) => {
+    const { modelHash, owner, position, rotation, primaryColor, secondaryColor, plate } = req.body;
+    if (modelHash && String(owner) && position && primaryColor && secondaryColor && plate) {
+      const instance = new VehicleModel({
+        modelHash,
+        owner,
+        position,
+        rotation,
+        primaryColor,
+        secondaryColor,
+        plate,
+      });
+      return instance.save().then((data) => {
+        res.send({ result: data });
+      });
+    }
+    return res.code(404).send({
+      result: { message: 'Already created or could not find all required parameters.' },
+    });
+  });
 
-        } else {
-            
-            return res.code(404).send({ result: { message: "Already created or required params are lack of." } })
-        }
+  // update vehicle
+  fastify.patch('/', options, async (req, res) => {
+    const vehicleExist = await VehicleModel.exists({ _id: req.body._id });
+    if (vehicleExist) {
+      const data = await VehicleModel.findOneAndUpdate({ _id: req.body._id }, req.body, {
+        new: true,
+      });
+      return res.code(200).send(data);
+    }
+    return res.code(404).send({ result: { message: 'Could not find all required parameters.' } });
+  });
 
-    })
-    fastify.get("/get/:type", options, async (req, res) => {
-        if (req.params.type === 'all') {
-            const result 
-            = await vehicleModel.find()
-            return res.code(200).send(result)
-        } else if (req.params.type === 'byowner') {
-            const vehicleResult = await vehicleModel.findOne({ ownerId: req.query.ownerId, _id: req.query.id })
-            const userResult = await userModel.findOne({ _id: req.query.ownerId })
-            if (userResult && vehicleResult) {
-                const vehicleDataManipulated = JSON.parse(JSON.stringify(vehicleResult))
-                vehicleDataManipulated.createdDate = new Date(vehicleResult.createdDate).toLocaleDateString("en-US")
-                return res.code(200).send({vehicleDataManipulated, ownerName: userResult.characterName})
-            }
-            else {
-                return res.code(400).send(false)
-            }
-        }
+  // delete vehicle
+  fastify.delete('/', options, async (req, res) => {
+    const { _id } = req.body;
+    if (_id) {
+      const vehicleExist = await VehicleModel.exists({ _id });
+      if (vehicleExist) {
+        await VehicleModel.deleteOne({ _id });
+        return res.code(200).send();
+      }
+      return res
+        .code(404)
+        .send({ result: { message: `Could not find a vehicle with the id ${_id}.` } });
+    }
+    return res.code(404).send({ result: { message: 'Could not find all required parameters.' } });
+  });
 
-        else return res.code(400).send(false)
-    })
-    fastify.post("/update", options, async (req, res) => {
-        const vehicleExist = await vehicleModel.exists({ _id: req.body.data._id })
-        if (vehicleExist) {
-            const updatedData = {
-                modelHash: req.body.data.modelHash,
-                ownerId: req.body.data.ownerId,
-                position: req.body.data.position,
-                primaryColor: req.body.data.colorData.primaryColor,
-                secondaryColor: req.body.data.colorData.secondaryColor,
-                faction: req.body.data.faction
-            }
-            const data = await vehicleModel.findOneAndUpdate({ _id: req.body.data._id }, updatedData, {
-                new: true,
-            });
-            return res.code(200).send(JSON.parse(JSON.stringify(data)))
-        }
-        else {
-            return res.code(404).send({ result: { message: "Error." } })
-        }
-
-    })
-
-    done();
-}
-module.exports = router
-
+  done();
+};
+module.exports = router;
