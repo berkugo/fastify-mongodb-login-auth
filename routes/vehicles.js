@@ -8,12 +8,13 @@ const router = (fastify, options, done) => {
 
   // create vehicle
   fastify.post('/', options, (req, res) => {
-    const { modelHash, ownerId, position, primaryColor, secondaryColor, plate } = req.body;
-    if (modelHash && ownerId && position && primaryColor && secondaryColor && plate) {
+    const { modelHash, owner, position, rotation, primaryColor, secondaryColor, plate } = req.body;
+    if (modelHash && String(owner) && position && primaryColor && secondaryColor && plate) {
       const instance = new VehicleModel({
         modelHash,
-        ownerId,
+        owner,
         position,
+        rotation,
         primaryColor,
         secondaryColor,
         plate,

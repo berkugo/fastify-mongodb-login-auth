@@ -4,7 +4,7 @@ const autoIncrement = require('mongoose-auto-increment');
 const vehicleSchema = new mongoose.Schema({
   id: { type: Number, default: 0 },
   modelHash: { type: String, required: true },
-  ownerId: { type: String, required: true },
+  owner: { type: Number, required: true },
   position: { type: Object, default: {} },
   rotation: { type: Object, default: { x: 0, y: 0, z: 0 } },
   primaryColor: { type: String, default: '0', required: true },
@@ -21,6 +21,7 @@ const vehicleSchema = new mongoose.Schema({
       3: null,
     },
   },
+  fines: { type: Array, default: [] },
 });
 
 vehicleSchema.plugin(autoIncrement.plugin, { model: 'vehicles', field: 'id' });

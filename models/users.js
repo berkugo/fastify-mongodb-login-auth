@@ -21,6 +21,7 @@ const userSchema = new mongoose.Schema({
   ban: { type: Boolean, default: false },
   jail: { type: Number, default: 0 },
   spawnLocation: { type: Object, default: {} },
+  fines: { type: Array, default: [] },
 });
 userSchema.plugin(autoIncrement.plugin, { model: 'users', field: 'xid' });
 const userModel = new mongoose.model('users', userSchema);
